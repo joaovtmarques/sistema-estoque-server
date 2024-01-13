@@ -23,4 +23,14 @@ export class InMemoryItemRepository implements ItemRepository {
   list(): Promise<ItemModel[]> {
     return new Promise((resolve) => resolve(this.items))
   }
+
+  find(id: string): Promise<ItemModel | null> {
+    let item: ItemModel | null = null
+
+    this.items.map((obj) => {
+      if (obj.id === id) item = obj
+    })
+
+    return new Promise((resolve) => resolve(item))
+  }
 }
