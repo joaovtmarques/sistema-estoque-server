@@ -7,4 +7,6 @@ export interface ItemRepository {
   list(): Promise<ItemModel[]>
 
   find(id: string): Promise<ItemModel | null>
+
+  update(item: ItemModel): Promise<ItemModel>
 }
