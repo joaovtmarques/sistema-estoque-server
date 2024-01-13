@@ -33,4 +33,16 @@ export class InMemoryItemRepository implements ItemRepository {
 
     return new Promise((resolve) => resolve(item))
   }
+
+  update(itemData: ItemModel): Promise<ItemModel> {
+    let item: ItemModel
+
+    this.items.map((obj) => {
+      if (obj.id === itemData.id) item = obj
+    })
+
+    item = itemData
+
+    return new Promise((resolve) => resolve(item))
+  }
 }
