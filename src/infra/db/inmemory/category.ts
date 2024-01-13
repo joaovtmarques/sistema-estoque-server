@@ -1,6 +1,6 @@
 import * as crypto from "crypto"
 import { CategoryModel } from "@/domain/models/category"
-import { CategoryRepository } from "@/domain/data/protocols/category-repository"
+import { CategoryRepository } from "@/data/protocols/category-repository"
 
 export class InMemoryCategoryRepository implements CategoryRepository {
   public categories: CategoryModel[] = []
@@ -14,5 +14,9 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     this.categories.push(category)
 
     return new Promise((resolve) => resolve(category))
+  }
+
+  list(): Promise<CategoryModel[]> {
+    return new Promise((resolve) => resolve(this.categories))
   }
 }
