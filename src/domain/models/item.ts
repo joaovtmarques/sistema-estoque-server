@@ -5,6 +5,7 @@ export interface ItemModel {
   name: string
   model?: string
   serialNumber?: string
-  type: CategoryModel
+  category?: CategoryModel
+  categoryId: string
   amount: number
 }
