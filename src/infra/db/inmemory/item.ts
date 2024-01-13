@@ -19,4 +19,8 @@ export class InMemoryItemRepository implements ItemRepository {
 
     return new Promise((resolve) => resolve(item))
   }
+
+  list(): Promise<ItemModel[]> {
+    return new Promise((resolve) => resolve(this.items))
+  }
 }
