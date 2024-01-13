@@ -5,4 +5,6 @@ export interface ItemRepository {
   add(item: AddItemModel): Promise<ItemModel>
 
   list(): Promise<ItemModel[]>
+
+  find(id: string): Promise<ItemModel | null>
 }
