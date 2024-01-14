@@ -1,8 +1,6 @@
-import { ItemModel } from "./item"
-
 export interface LoanModel {
   id: string
-  item: ItemModel
+  itemId: string
   amount: number
   date: Date
   lender: string
