@@ -48,4 +48,20 @@ describe("AddCategory controller", () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError("name"))
   })
+
+  test("Should return 201 if valid name is provided", async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: "valid_name",
+      },
+    }
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(201)
+    expect(httpResponse.body).toEqual({
+      id: "valid_id",
+      name: "valid_name",
+    })
+  })
 })
