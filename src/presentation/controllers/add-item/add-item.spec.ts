@@ -54,4 +54,25 @@ describe("AddItem controller", () => {
     expect(item.statusCode).toBe(400)
     expect(item.body).toEqual(new MissingParamError("name"))
   })
+
+  test("Should return 201 if valid data is provided", async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: "valid_name",
+        categoryId: "valid_category_id",
+        amount: 1,
+      },
+    }
+
+    const item = await sut.handle(httpRequest)
+
+    expect(item.statusCode).toBe(201)
+    expect(item.body).toEqual({
+      id: expect.any(String),
+      name: "valid_name",
+      categoryId: "valid_category_id",
+      amount: 1,
+    })
+  })
 })
