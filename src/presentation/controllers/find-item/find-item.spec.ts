@@ -50,4 +50,24 @@ describe("FindItem controller", () => {
     expect(item.statusCode).toBe(404)
     expect(item.body).toEqual(new Error("Item not found"))
   })
+
+  test("Should return 200 if provided id is valid", async () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        id: "valid_id",
+      },
+    }
+
+    const item = await sut.handle(httpRequest)
+
+    expect(item.statusCode).toBe(200)
+    expect(item.body).toEqual({
+      id: "valid_id",
+      name: "valid_name",
+      categoryId: "valid_category_id",
+      amount: 1,
+    })
+  })
 })
