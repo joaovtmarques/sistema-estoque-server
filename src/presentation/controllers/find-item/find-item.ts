@@ -23,7 +23,7 @@ export class FindItemController implements Controller {
         }
       }
 
-      const item = await this.findItem.find(httpRequest.body)
+      const item = await this.findItem.find(httpRequest.body.id)
 
       if (!item) {
         return notFound(new Error("Item not found"))
