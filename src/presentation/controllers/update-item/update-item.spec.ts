@@ -47,4 +47,27 @@ describe("UpdateItem Controller", () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError("categoryId"))
   })
+
+  test("Should return 200 if valid data is provided", async () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        id: "valid_id",
+        name: "valid_name",
+        categoryId: "valid_category_id",
+        amount: 2,
+      },
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: "valid_id",
+      name: "valid_name",
+      categoryId: "valid_category_id",
+      amount: 2,
+    })
+  })
 })
