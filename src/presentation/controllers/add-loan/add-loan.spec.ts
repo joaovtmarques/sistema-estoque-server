@@ -59,4 +59,37 @@ describe("AddLoan Controller", () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError("item"))
   })
+
+  test("Should return 201 if valid data is provided", async () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        item: {
+          id: "valid_id",
+          name: "valid_name",
+          categoryId: "valid_category_id",
+          amount: 2,
+        },
+        amount: 1,
+        date: new Date(),
+        lender: "any_lender",
+        receiver: "any_receiver",
+        observation: "any_observation",
+      },
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(201)
+    expect(httpResponse.body).toEqual({
+      id: expect.any(String),
+      itemId: expect.any(String),
+      amount: 1,
+      date: expect.any(Date),
+      lender: "any_lender",
+      receiver: "any_receiver",
+      observation: "any_observation",
+    })
+  })
 })
