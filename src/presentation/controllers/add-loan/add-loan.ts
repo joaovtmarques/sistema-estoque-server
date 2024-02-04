@@ -1,3 +1,4 @@
+import { AddLoanDoc } from "@/domain/usecases/add-loan-doc"
 import {
   created,
   AddLoan,
@@ -10,7 +11,10 @@ import {
 } from "./add-loan-protocols"
 
 export class AddLoanController implements Controller {
-  constructor(private readonly addLoan: AddLoan) {}
+  constructor(
+    private readonly addLoan: AddLoan,
+    private readonly addLoanDoc: AddLoanDoc,
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
@@ -23,6 +27,10 @@ export class AddLoanController implements Controller {
       }
 
       const loan = await this.addLoan.add(httpRequest.body)
+      this.addLoanDoc.add({
+        item: httpRequest.body.item,
+        ...loan,
+      })
 
       return created(loan)
     } catch (err) {
