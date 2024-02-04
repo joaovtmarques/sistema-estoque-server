@@ -1,3 +1,4 @@
+import { DbAddLoanDoc } from "@/data/usecases/add-loan-doc/db-add-loan-doc"
 import {
   AddLoan,
   LoanModel,
@@ -32,7 +33,8 @@ const makeAddLoan = (): AddLoan => {
 
 const makeSut = (): SutTypes => {
   const addLoanStub = makeAddLoan()
-  const sut = new AddLoanController(addLoanStub)
+  const addLoanDoc = new DbAddLoanDoc()
+  const sut = new AddLoanController(addLoanStub, addLoanDoc)
 
   return {
     sut,
