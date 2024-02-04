@@ -1,8 +1,10 @@
 import {
   AddLoan,
   AddItem,
+  FindItem,
   DbAddLoan,
   DbAddItem,
+  DbFindItem,
   AddCategory,
   DbAddCategory,
   InMemoryItemRepository,
@@ -14,6 +16,7 @@ interface SutTypes {
   sut: AddLoan
   addCategory: AddCategory
   addItem: AddItem
+  findItem: FindItem
 }
 
 const makeSut = (): SutTypes => {
@@ -23,22 +26,24 @@ const makeSut = (): SutTypes => {
 
   const addCategory = new DbAddCategory(categoryRepository)
   const addItem = new DbAddItem(itemRepository)
+  const findItem = new DbFindItem(itemRepository)
   const sut = new DbAddLoan(loanRepository, itemRepository)
 
   return {
     sut,
     addCategory,
     addItem,
+    findItem,
   }
 }
 
 describe("Add loan", () => {
   test("Should return an loan on success", async () => {
-    const { sut, addCategory, addItem } = makeSut()
+    const { sut, addCategory, addItem, findItem } = makeSut()
 
     const category = await addCategory.add("any_category")
 
-    const item = await addItem.add({
+    const createdItem = await addItem.add({
       name: "valid_name",
       model: "valid_model",
       serialNumber: "valid_serial_number",
@@ -47,7 +52,7 @@ describe("Add loan", () => {
     })
 
     const loan = await sut.add({
-      item,
+      item: createdItem,
       amount: 1,
       date: new Date(),
       lender: "any_lender",
@@ -66,5 +71,9 @@ describe("Add loan", () => {
         observation: "any_observation",
       }),
     )
+
+    const item = await findItem.find(createdItem.id)
+
+    expect(item?.amount).toBe(1)
   })
 })

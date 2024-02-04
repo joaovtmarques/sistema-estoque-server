@@ -6,4 +6,5 @@ export interface LoanModel {
   lender: string
   receiver: string
   observation: string
+  devolutionDate?: Date
 }
