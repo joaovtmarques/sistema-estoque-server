@@ -20,4 +20,19 @@ describe("Category Prisma Repository", () => {
     expect(category.id).toBeTruthy()
     expect(category.name).toBe("valid_category")
   })
+
+  test("Should return all categories", async () => {
+    const sut = makeSut()
+
+    await sut.add("valid_category")
+
+    const category = await sut.list()
+
+    expect(category).toEqual([
+      {
+        id: expect.any(String),
+        name: "valid_category",
+      },
+    ])
+  })
 })
