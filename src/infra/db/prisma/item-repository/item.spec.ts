@@ -71,4 +71,33 @@ describe("Prisma Item Repository", () => {
       },
     ])
   })
+
+  test("Should return an item by id on success", async () => {
+    const sut = makeSut()
+
+    const category = await db.category.create({
+      data: {
+        name: "valid_category",
+      },
+    })
+
+    const createdItem = await sut.add({
+      name: "valid_name",
+      model: "valid_model",
+      serialNumber: "valid_serial_number",
+      amount: 2,
+      categoryId: category.id,
+    })
+
+    const item = await sut.find(createdItem.id)
+
+    expect(item).toBeTruthy()
+    expect(item!.id).toBeTruthy()
+    expect(item!.name).toBe("valid_name")
+    expect(item!.model).toBe("valid_model")
+    expect(item!.serialNumber).toBe("valid_serial_number")
+    expect(item!.amount).toBe(2)
+    expect(item!.categoryId).toBe(category.id)
+    expect(item!.category).toBeTruthy()
+  })
 })

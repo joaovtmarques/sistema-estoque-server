@@ -26,6 +26,7 @@ export class PrismaItemRepository implements ItemRepository {
       where: {
         id,
       },
+      include: { category: true },
     })
   }
 
