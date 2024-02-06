@@ -1,4 +1,4 @@
-import db from "../helpers/prisma-helper"
+import { db } from "../helpers/prisma-helper"
 import { CategoryModel } from "@/domain/models/category"
 import { CategoryRepository } from "@/data/protocols/category-repository"
 
