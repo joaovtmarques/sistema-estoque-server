@@ -38,4 +38,37 @@ describe("Prisma Item Repository", () => {
     expect(item.categoryId).toBe(category.id)
     expect(item.category).toBeTruthy()
   })
+
+  test("Should return all items", async () => {
+    const sut = makeSut()
+
+    const category = await db.category.create({
+      data: {
+        name: "valid_category",
+      },
+    })
+
+    const item = await sut.add({
+      name: "valid_name",
+      model: "valid_model",
+      serialNumber: "valid_serial_number",
+      amount: 2,
+      categoryId: category.id,
+    })
+
+    const items = await sut.list()
+
+    expect(items).toBeTruthy()
+    expect(items).toEqual([
+      {
+        id: item.id,
+        name: item.name,
+        model: item.model,
+        serialNumber: item.serialNumber,
+        amount: item.amount,
+        categoryId: item.categoryId,
+        category: item.category,
+      },
+    ])
+  })
 })
