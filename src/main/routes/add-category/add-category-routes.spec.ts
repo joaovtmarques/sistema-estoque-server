@@ -8,11 +8,15 @@ describe("AddCategory route", () => {
   })
 
   test("Should return an category on success", async () => {
-    await request(app)
+    const category = await request(app)
       .post("/api/categories")
       .send({
         name: "any_category",
       })
       .expect(201)
+
+    expect(category.body).toBeTruthy()
+    expect(category.body.id).toBeTruthy()
+    expect(category.body.name).toEqual("any_category")
   })
 })
