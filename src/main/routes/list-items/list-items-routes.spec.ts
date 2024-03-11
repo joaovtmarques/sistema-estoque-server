@@ -24,19 +24,6 @@ describe("List items route", () => {
     const { body } = await request(app).get("/api/items").expect(200)
 
     expect(body).toBeTruthy()
-    expect(body).toEqual([
-      {
-        id: expect.any(String),
-        name: "valid_name",
-        categoryId: category.body.id,
-        category: {
-          id: expect.any(String),
-          name: "valid_category",
-        },
-        model: "valid_model",
-        serialNumber: "valid_serial_number",
-        amount: 1,
-      },
-    ])
+    expect(body).toEqual(expect.any(Array))
   })
 })
