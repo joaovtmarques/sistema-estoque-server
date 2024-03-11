@@ -4,7 +4,7 @@ import { AddItemController } from "@/presentation/controllers/add-item/add-item"
 
 export const makeAddItemController = (): AddItemController => {
   const itemRepository = new PrismaItemRepository()
-  const dbAddItemRepository = new DbAddItem(itemRepository)
+  const dbAddItem = new DbAddItem(itemRepository)
 
-  return new AddItemController(dbAddItemRepository)
+  return new AddItemController(dbAddItem)
 }

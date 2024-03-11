@@ -3,7 +3,7 @@ import app from "@/main/config/app"
 import { db } from "@/infra/db/prisma/helpers/prisma-helper"
 
 describe("Add item route", () => {
-  afterEach(async () => {
+  beforeEach(async () => {
     await db.category.deleteMany({})
     await db.item.deleteMany({})
   })
@@ -17,10 +17,10 @@ describe("Add item route", () => {
       .post("/api/items")
       .send({
         name: "valid_name",
+        categoryId: category.body.id,
+        amount: 1,
         model: "valid_model",
         serialNumber: "valid_serial_number",
-        categoryId: category.body.id,
-        amount: 2,
       })
       .expect(201)
 
@@ -30,6 +30,6 @@ describe("Add item route", () => {
     expect(body.model).toEqual("valid_model")
     expect(body.serialNumber).toEqual("valid_serial_number")
     expect(body.categoryId).toEqual(category.body.id)
-    expect(body.amount).toEqual(2)
+    expect(body.amount).toEqual(1)
   })
 })

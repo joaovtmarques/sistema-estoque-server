@@ -20,8 +20,8 @@ model Category {
 model Item {
   id           String  @id @default(uuid())
   name         String
-  model        String?
-  serialNumber String?
+  model        String? @default("{empty}")
+  serialNumber String? @default("{empty}")
   amount       Int
 
   category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)

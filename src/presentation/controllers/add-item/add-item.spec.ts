@@ -19,6 +19,8 @@ const makeAddItem = (): AddItem => {
         name: item.name,
         categoryId: item.categoryId,
         amount: item.amount,
+        model: item.model,
+        serialNumber: item.serialNumber,
       }
 
       return new Promise((resolve) => resolve(createdItem))
@@ -62,6 +64,8 @@ describe("AddItem controller", () => {
         name: "valid_name",
         categoryId: "valid_category_id",
         amount: 1,
+        model: "valid_model",
+        serialNumber: "valid_serial_number",
       },
     }
 
@@ -73,6 +77,8 @@ describe("AddItem controller", () => {
       name: "valid_name",
       categoryId: "valid_category_id",
       amount: 1,
+      model: "valid_model",
+      serialNumber: "valid_serial_number",
     })
   })
 })

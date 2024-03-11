@@ -3,7 +3,7 @@ import { PrismaCategoryRepository } from "./category"
 import { CategoryRepository } from "@/data/protocols/category-repository"
 
 describe("Category Prisma Repository", () => {
-  afterEach(async () => {
+  beforeEach(async () => {
     await db.category.deleteMany()
   })
 
@@ -23,6 +23,8 @@ describe("Category Prisma Repository", () => {
 
   test("Should return all categories", async () => {
     const sut = makeSut()
+
+    await db.category.deleteMany()
 
     await sut.add("valid_category")
 

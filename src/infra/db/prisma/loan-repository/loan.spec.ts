@@ -3,7 +3,7 @@ import { PrismaLoanRepository } from "./loan"
 import { LoanRepository } from "@/data/protocols/loan-repository"
 
 describe("Prisma Loan Repository", () => {
-  afterEach(async () => {
+  beforeEach(async () => {
     await db.category.deleteMany()
     await db.item.deleteMany()
     await db.loan.deleteMany()

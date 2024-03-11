@@ -3,7 +3,7 @@ import { PrismaItemRepository } from "./item"
 import { ItemRepository } from "@/data/protocols/item-repository"
 
 describe("Prisma Item Repository", () => {
-  afterEach(async () => {
+  beforeEach(async () => {
     await db.category.deleteMany()
     await db.item.deleteMany()
   })
@@ -42,6 +42,9 @@ describe("Prisma Item Repository", () => {
   test("Should return all items", async () => {
     const sut = makeSut()
 
+    await db.category.deleteMany()
+    await db.item.deleteMany()
+
     const category = await db.category.create({
       data: {
         name: "valid_category",
@@ -59,17 +62,19 @@ describe("Prisma Item Repository", () => {
     const items = await sut.list()
 
     expect(items).toBeTruthy()
-    expect(items).toEqual([
-      {
-        id: item.id,
-        name: item.name,
-        model: item.model,
-        serialNumber: item.serialNumber,
-        amount: item.amount,
-        categoryId: item.categoryId,
-        category: item.category,
+    expect(items).toEqual(expect.any(Array))
+    expect(items[0]).toEqual({
+      id: item.id,
+      name: item.name,
+      model: item.model,
+      serialNumber: item.serialNumber,
+      amount: item.amount,
+      categoryId: category.id,
+      category: {
+        id: category.id,
+        name: category.name,
       },
-    ])
+    })
   })
 
   test("Should return an item by id on success", async () => {

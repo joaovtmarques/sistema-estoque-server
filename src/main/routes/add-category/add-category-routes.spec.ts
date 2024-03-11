@@ -3,7 +3,7 @@ import app from "@/main/config/app"
 import { db } from "@/infra/db/prisma/helpers/prisma-helper"
 
 describe("AddCategory route", () => {
-  afterEach(async () => {
+  beforeEach(async () => {
     await db.category.deleteMany()
   })
 

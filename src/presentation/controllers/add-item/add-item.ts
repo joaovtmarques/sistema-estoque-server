@@ -14,7 +14,13 @@ export class AddItemController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = ["name", "categoryId", "amount"]
+      const requiredFields = [
+        "name",
+        "categoryId",
+        "amount",
+        "model",
+        "serialNumber",
+      ]
 
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {

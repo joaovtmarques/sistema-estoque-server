@@ -40,7 +40,7 @@ describe("FindItem controller", () => {
     const { sut } = makeSut()
 
     const httpRequest = {
-      body: {
+      params: {
         id: "any_id",
       },
     }
@@ -55,7 +55,7 @@ describe("FindItem controller", () => {
     const { sut } = makeSut()
 
     const httpRequest = {
-      body: {
+      params: {
         id: "valid_id",
       },
     }

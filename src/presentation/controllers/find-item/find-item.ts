@@ -18,12 +18,12 @@ export class FindItemController implements Controller {
       const requiredField = ["id"]
 
       for (const field of requiredField) {
-        if (!httpRequest.body[field]) {
+        if (!httpRequest.params[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      const item = await this.findItem.find(httpRequest.body.id)
+      const item = await this.findItem.find(httpRequest.params.id)
 
       if (!item) {
         return notFound(new Error("Item not found"))

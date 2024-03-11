@@ -3,7 +3,7 @@ import app from "@/main/config/app"
 import { db } from "@/infra/db/prisma/helpers/prisma-helper"
 
 describe("List items route", () => {
-  afterEach(async () => {
+  beforeEach(async () => {
     await db.category.deleteMany({})
     await db.item.deleteMany({})
   })
@@ -17,6 +17,8 @@ describe("List items route", () => {
       name: "valid_name",
       categoryId: category.body.id,
       amount: 1,
+      model: "valid_model",
+      serialNumber: "valid_serial_number",
     })
 
     const { body } = await request(app).get("/api/items").expect(200)
@@ -31,8 +33,8 @@ describe("List items route", () => {
           id: expect.any(String),
           name: "valid_category",
         },
-        model: null,
-        serialNumber: null,
+        model: "valid_model",
+        serialNumber: "valid_serial_number",
         amount: 1,
       },
     ])
