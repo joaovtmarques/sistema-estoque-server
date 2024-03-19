@@ -4,15 +4,16 @@ import { AddLoanModel } from "@/domain/usecases/add-loan"
 import { LoanRepository } from "@/data/protocols/loan-repository"
 
 export class PrismaLoanRepository implements LoanRepository {
-  async add(data: AddLoanModel): Promise<Omit<LoanModel, "devolutionDate">> {
+  async add(data: AddLoanModel): Promise<LoanModel> {
     return await db.loan.create({
       data: {
-        itemId: data.item.id,
+        itemId: data.itemId,
         amount: data.amount,
-        date: data.date,
+        date: data.date.toString(),
         lender: data.lender,
         receiver: data.receiver,
         observation: data.observation,
+        devolutionDate: data.date.toString(),
       },
       include: {
         item: true,

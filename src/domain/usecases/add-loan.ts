@@ -4,10 +4,11 @@ import { LoanModel } from "../models/loan"
 export interface AddLoanModel {
   item: ItemModel
   amount: number
-  date: Date
+  date: string
   lender: string
   receiver: string
   observation: string
+  itemId?: string
 }
 
 export interface AddLoan {

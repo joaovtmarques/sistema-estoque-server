@@ -1,10 +1,13 @@
+import { ItemModel } from "./item"
+
 export interface LoanModel {
   id: string
   itemId: string
   amount: number
-  date: Date
+  date: string
   lender: string
   receiver: string
   observation: string
-  devolutionDate?: Date
+  devolutionDate?: string
+  item?: ItemModel | undefined | null | any
 }

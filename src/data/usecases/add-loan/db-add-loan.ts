@@ -12,13 +12,11 @@ export class DbAddLoan implements AddLoan {
   async add(loanData: AddLoanModel): Promise<LoanModel> {
     const loan = await this.loanRepository.add(loanData)
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { amount: _, ...itemData } = loanData.item
+    const item = await this.itemRepository.find(loanData.itemId!)
 
-    await this.itemRepository.update({
-      amount: loanData.item.amount - loanData.amount,
-      ...itemData,
-    })
+    const amount = item!.amount - loanData.amount
+
+    await this.itemRepository.updateAmount(loanData.itemId!, amount)
 
     return loan
   }

@@ -19,7 +19,7 @@ export class DbAddLoanDoc implements AddLoanDoc {
 
     doc.render({
       receiver: loan.receiver,
-      date: loan.date.toLocaleDateString("pt-BR"),
+      date: loan.date.toString(),
       name: loan.item.name,
       category: loan.item.category?.name,
       serialNumber: loan.item.serialNumber,

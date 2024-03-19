@@ -30,13 +30,13 @@ model Item {
 }
 
 model Loan {
-  id             String    @id @default(uuid())
+  id             String  @id @default(uuid())
   amount         Int
-  date           DateTime
+  date           String
   lender         String
   receiver       String
   observation    String
-  devolutionDate DateTime?
+  devolutionDate String
 
   item   Item?  @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId String

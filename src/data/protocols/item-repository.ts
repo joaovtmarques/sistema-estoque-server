@@ -9,4 +9,6 @@ export interface ItemRepository {
   find(id: string): Promise<ItemModel | null>
 
   update(item: ItemModel): Promise<ItemModel>
+
+  updateAmount(id: string, amount: number): Promise<void>
 }

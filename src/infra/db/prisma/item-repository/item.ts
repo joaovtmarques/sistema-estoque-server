@@ -30,6 +30,17 @@ export class PrismaItemRepository implements ItemRepository {
     })
   }
 
+  async updateAmount(id: string, amount: number): Promise<void> {
+    await db.item.update({
+      where: {
+        id,
+      },
+      data: {
+        amount,
+      },
+    })
+  }
+
   async update(data: Omit<ItemModel, "category">): Promise<ItemModel> {
     return await db.item.update({
       where: {

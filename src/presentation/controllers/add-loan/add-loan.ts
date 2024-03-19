@@ -18,7 +18,7 @@ export class AddLoanController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = ["item", "amount", "date", "lender", "receiver"]
+      const requiredFields = ["itemId", "amount", "date", "lender", "receiver"]
 
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
@@ -27,8 +27,9 @@ export class AddLoanController implements Controller {
       }
 
       const loan = await this.addLoan.add(httpRequest.body)
+
       this.addLoanDoc.add({
-        item: httpRequest.body.item,
+        item: loan.item,
         ...loan,
       })
 
