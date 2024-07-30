@@ -16,6 +16,18 @@ export class PrismaLoanRepository implements LoanRepository {
         devolutionDate: data.date.toString(),
       },
       include: {
+        item: {
+          include: {
+            category: true,
+          },
+        },
+      },
+    })
+  }
+
+  async list(): Promise<LoanModel[]> {
+    return await db.loan.findMany({
+      include: {
         item: true,
       },
     })

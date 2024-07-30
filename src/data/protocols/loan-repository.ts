@@ -3,4 +3,6 @@ import { AddLoanModel } from "@/domain/usecases/add-loan"
 
 export interface LoanRepository {
   add(loan: AddLoanModel): Promise<LoanModel>
+
+  list(): Promise<LoanModel[]>
 }

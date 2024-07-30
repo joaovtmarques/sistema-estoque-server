@@ -24,7 +24,7 @@ export class DbAddLoanDoc implements AddLoanDoc {
       category: loan.item.category?.name,
       serialNumber: loan.item.serialNumber,
       model: loan.item.model,
-      amount: loan.item.amount,
+      amount: loan.amount,
       observation: loan.observation,
       lender: loan.lender,
     })
