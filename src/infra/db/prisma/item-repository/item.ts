@@ -52,4 +52,12 @@ export class PrismaItemRepository implements ItemRepository {
       },
     })
   }
+
+  async delete(id: string): Promise<void> {
+    await db.item.delete({
+      where: {
+        id,
+      },
+    })
+  }
 }

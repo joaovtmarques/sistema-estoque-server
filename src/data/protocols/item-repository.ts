@@ -11,4 +11,6 @@ export interface ItemRepository {
   update(item: ItemModel): Promise<ItemModel>
 
   updateAmount(id: string, amount: number): Promise<void>
+
+  delete(id: string): Promise<void>
 }
